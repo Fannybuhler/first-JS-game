@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>My first game</title>
+        <script src="script.js" defer></script>
+        <style>
+            canvas { 
+                background-image: url(https://ak.picdn.net/shutterstock/videos/11863184/thumb/1.jpg);
+                border: 1px solid black;
+                display: block; 
+                margin: 0 auto; 
+                padding: 0;
+            }
+
+            img {
+                display: none;
+            }
+
+            .buttons {
+                display: flex;
+                justify-content: center;
+            }
+
+            button {
+                padding: 10px;
+                margin: 10px;
+                width: 100px;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <canvas id="myCanvas" width="700" height="450"></canvas>
+        <img src="apple.png" id="apple">
+        <img src="waste.png" id="waste">
+        <img src="basket.png" id="basket">
+
+        <section class="buttons">
+            <button type="button" id="start">START</button>
+            <button type="button" id="pause">PAUSE</button>
+            <button type="button" id="restart">RESTART</button>
+        </section>
+    </body>
+</html>
