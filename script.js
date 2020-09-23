@@ -2,6 +2,8 @@ let canvas = document.getElementById("myCanvas"); //link to html
 let ctx = canvas.getContext("2d"); //so that we can paint on the canvas
 
 let score = 0;
+let timeLeft = 10;
+let timer
 
 // APPLE
 let xApple = getStartingPoint();
@@ -58,6 +60,7 @@ function getStartingPoint() {
   return startingPoint;
 }
 
+// DRAW STUFF ON CANVAS
 function drawFruit() {
   ctx.drawImage(apple, xApple, yApple);
 }
@@ -76,15 +79,41 @@ function drawScore() {
   ctx.fillText("Score: " + score, 8, 20);
 }
 
+function drawTimer() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "black";
+    ctx.fillText("Time left: " + timeLeft, canvas.width - 100, 20);
+}
+
+// TIMER
+function countdown() {
+    if (timeLeft == 0){
+        clearTimeout(timer);
+        timeOut();
+    } else {
+        timeLeft--;
+    }
+}
+
+let lastScore = document.getElementById("lastScore");
+
+function timeOut() {
+    lastScore.innerHTML = "Score: " + score
+}
+
+// RUN ALL FUNCTIONS
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawFruit();
   drawWaste();
   drawBasket();
   drawScore();
+  drawTimer();
 
+    //If catching an apple
     if (xApple > basketX && xApple < basketX + basketWidth && yApple + dyApple > canvas.height - basketHeight) {
         score++;
+        dyApple += 0.1 //Speed up apple drop speed
         yApple = -30; //start over from top
         xApple = getStartingPoint(); //get new starting point for fruit x-axis
     } 
@@ -94,8 +123,10 @@ function draw() {
         xApple = getStartingPoint(); //get new starting point for fruit x-axis
     }
 
+    //If catching waste
     if (xWaste > basketX && xWaste < basketX + basketWidth && yWaste + dyWaste > canvas.height - basketHeight) {
         score--;
+        dyWaste += 0.1;
         yWaste = -30;
         xWaste = getStartingPoint();
     } 
@@ -105,6 +136,7 @@ function draw() {
         xWaste = getStartingPoint();
     }
 
+    //If moving the basket
     if (rightPressed) {
         basketX += 5;
         // IF basket position + basket width > canvas width
@@ -130,8 +162,9 @@ let interval = setInterval(draw, 10);
 
 // BUTTONS
 document.getElementById("start").addEventListener("click", function() {
-    dyApple = 2.5;
+    dyApple = 2;
     dyWaste = 3;
+    setInterval(countdown, 1000);
 });
 
 document.getElementById("pause").addEventListener("click", function() {
