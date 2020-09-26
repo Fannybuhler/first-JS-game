@@ -4,45 +4,71 @@
         <meta charset="utf-8">
         <title>My first game</title>
         <script src="script.js" defer></script>
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
         <style>
-            canvas { 
-                background-image: url(https://ak.picdn.net/shutterstock/videos/11863184/thumb/1.jpg);
-                border: 1px solid black;
-                display: block; 
-                margin: 0 auto; 
+            * {
+                box-sizing: border-box;
+                margin: 0;
                 padding: 0;
             }
 
-            img {
+            body {
+                font-family: 'Press Start 2P', cursive;
+            }
+
+            header {
+                padding: 50px;
+            }
+
+            canvas { 
+                background-image: url(images/background.jpg);
+                border: 1px solid black;
+                display: block; 
+                margin: 0 auto;
+            }
+
+            .icons {
                 display: none;
             }
 
             .buttons {
                 display: flex;
                 justify-content: center;
+                position: relative;
+                bottom: 264px;
             }
 
-            button {
-                padding: 10px;
-                margin: 10px;
-                width: 100px;
+            .hidden {
+                display: none;
+            }
+
+            .showing {
+                position: absolute;
+                border: none;
+                background-color: transparent;
+            }
+
+            #lastScore {
+                position: relative;
+                bottom: 25px;
             }
         </style>
     </head>
     
     <body>
-        <canvas id="myCanvas" width="700" height="450"></canvas>
-        <img src="apple.png" id="apple">
-        <img src="waste.png" id="waste">
-        <img src="basket.png" id="basket">
-
-        <section class="highScore">
-            <p id="lastScore"></p>
-        </section>
-        <section class="buttons">
-            <button type="button" id="start">START</button>
-            <button type="button" id="pause">PAUSE</button>
-            <button type="button" id="restart">RESTART</button>
+        <header></header>
+        <section class="canvas">
+            <canvas id="myCanvas" width="700" height="450"></canvas>
+            <div class="icons">
+                <img src="images/apple.png" id="apple">
+                <img src="images/waste.png" id="waste">
+                <img src="images/basket.png" id="basket">
+            </div>
+            <div class="buttons">
+                <button type="button" class="start showing"><img id="playBtn" src="images/playBtn.png"></button>
+                <button type="button" class="restart hidden"><img id="restartBtn"" src="images/restartBtn.png"></button>
+                <p id="lastScore"></p>
+            </div>
         </section>
     </body>
 </html>

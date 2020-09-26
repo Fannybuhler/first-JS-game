@@ -2,8 +2,7 @@ let canvas = document.getElementById("myCanvas"); //link to html
 let ctx = canvas.getContext("2d"); //so that we can paint on the canvas
 
 let score = 0;
-let timeLeft = 10;
-let timer
+let timeLeft = 10; //Set value to timer
 
 // APPLE
 let xApple = getStartingPoint();
@@ -28,6 +27,9 @@ let leftPressed = false;
 let apple = document.getElementById("apple");
 let waste = document.getElementById("waste");
 let basket = document.getElementById("basket");
+
+// WRITE SCORE AFTER GAME IS FINISHED
+let lastScore = document.getElementById("lastScore");
 
 // KEYBOARD CONTROLS
 document.addEventListener("keydown", keyDownHandler, false);
@@ -74,31 +76,31 @@ function drawBasket() {
 }
 
 function drawScore() {
-  ctx.font = "16px Arial";
+  ctx.font = "12px 'Press Start 2P'";
   ctx.fillStyle = "black";
   ctx.fillText("Score: " + score, 8, 20);
 }
 
 function drawTimer() {
-    ctx.font = "16px Arial";
+    ctx.font = "12px 'Press Start 2P'";
     ctx.fillStyle = "black";
-    ctx.fillText("Time left: " + timeLeft, canvas.width - 100, 20);
+    ctx.fillText("Time left: " + timeLeft + "s", canvas.width - 176, 20);
 }
 
 // TIMER
 function countdown() {
     if (timeLeft == 0){
-        clearTimeout(timer);
         timeOut();
     } else {
         timeLeft--;
     }
 }
 
-let lastScore = document.getElementById("lastScore");
-
 function timeOut() {
     lastScore.innerHTML = "Score: " + score
+    clearInterval(interval);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    restartBtn();
 }
 
 // RUN ALL FUNCTIONS
@@ -142,7 +144,7 @@ function draw() {
         // IF basket position + basket width > canvas width
         //Basket position stop/= canvas width - basket width
         if (basketX + basketWidth > canvas.width) {
-        basketX = canvas.width - basketWidth;
+            basketX = canvas.width - basketWidth;
         }
     } 
     
@@ -150,28 +152,53 @@ function draw() {
         basketX -= 5;
         //stop at 0 on canvas width (don't move outside frame)
         if (basketX < 0) {
-        basketX = 0;
+            basketX = 0;
         }
     }
 
-  yApple += dyApple;
+  yApple += dyApple; //give apple new y-axis position when it moves
   yWaste += dyWaste;
 }
 
 let interval = setInterval(draw, 10);
 
 // BUTTONS
-document.getElementById("start").addEventListener("click", function() {
+// start button click function
+ let startBtn = document.querySelector(".start");
+ startBtn.addEventListener("click", function() {
     dyApple = 2;
     dyWaste = 3;
-    setInterval(countdown, 1000);
+    setInterval(countdown, 1000); //Placed here so that timer starts when button is clicked
+    startBtn.classList.remove("showing");
+    startBtn.classList.add("hidden");
 });
 
-document.getElementById("pause").addEventListener("click", function() {
-    dyApple = 0;
-    dyWaste = 0;
+// switch image on hover
+let playBtn = document.getElementById("playBtn");
+playBtn.addEventListener("mouseover", function(){
+    playBtn.src = "images/playBtnPressed FIXED.png";
 });
 
-document.getElementById("restart").addEventListener("click", function() {
-    document.location.reload();
+playBtn.addEventListener("mouseout", function(){
+    playBtn.src = "images/playBtn.png"
 });
+
+// restart button click function
+let restart = document.querySelector(".restart");
+function restartBtn(){
+        restart.classList.remove("hidden");
+        restart.classList.add("showing");
+        restart.addEventListener("click", function() {
+            document.location.reload();
+        });
+};
+
+// switch image on hover
+let restartIcon = document.getElementById("restartBtn");
+restartIcon.addEventListener("mouseover", function(){
+    restartIcon.src = "images/restartBtnPressed.png";
+})
+
+restartIcon.addEventListener("mouseout", function(){
+    restartIcon.src = "images/restartBtn.png";
+})
