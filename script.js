@@ -2,7 +2,7 @@ let canvas = document.getElementById("myCanvas"); //link to html
 let ctx = canvas.getContext("2d"); //so that we can paint on the canvas
 
 let score = 0;
-let timeLeft = 10; //Set value to timer
+let timeLeft = 30; //Set value to timer
 
 // APPLE
 let xApple = getStartingPoint();
