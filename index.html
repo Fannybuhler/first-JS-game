@@ -14,10 +14,14 @@
 
             body {
                 font-family: 'Press Start 2P', cursive;
+                background-image: url(images/bodyBackground.png);
+                background-size: cover;
             }
 
             header {
-                padding: 50px;
+                padding: 20px;
+                display: flex;
+                justify-content: center;
             }
 
             canvas { 
@@ -25,6 +29,12 @@
                 border: 1px solid black;
                 display: block; 
                 margin: 0 auto;
+            }
+
+            #points {
+                position: absolute;
+                bottom: 40vh;
+                left: 20vh;
             }
 
             .icons {
@@ -56,7 +66,9 @@
     </head>
     
     <body>
-        <header></header>
+        <header>
+            <img src="images/headerLogo.png" alt="Fruitz Logo">
+        </header>
         <section class="canvas">
             <canvas id="myCanvas" width="700" height="450"></canvas>
             <div class="icons">
@@ -64,6 +76,7 @@
                 <img src="images/waste.png" id="waste">
                 <img src="images/basket.png" id="basket">
             </div>
+            <img id="points" src="images/points.png" alt="points">
             <div class="buttons">
                 <button type="button" class="start showing"><img id="playBtn" src="images/playBtn.png"></button>
                 <button type="button" class="restart hidden"><img id="restartBtn"" src="images/restartBtn.png"></button>

@@ -15,8 +15,8 @@ let yWaste = -30;
 let dyWaste = 0;
 
 // BASKET DIMENSIONS
-let basketHeight = 60;
-let basketWidth = 60;
+const basketHeight = 60;
+const basketWidth = 60;
 let basketX = canvas.width / 2 - basketWidth / 2;
 
 // KEYBOARD CONTROLS
@@ -24,9 +24,9 @@ let rightPressed = false; //false bc not pressed to begin with
 let leftPressed = false;
 
 // IMPORT IMAGES
-let apple = document.getElementById("apple");
-let waste = document.getElementById("waste");
-let basket = document.getElementById("basket");
+const apple = document.getElementById("apple");
+const waste = document.getElementById("waste");
+const basket = document.getElementById("basket");
 
 // WRITE SCORE AFTER GAME IS FINISHED
 let lastScore = document.getElementById("lastScore");
@@ -118,6 +118,8 @@ function draw() {
         dyApple += 0.1 //Speed up apple drop speed
         yApple = -30; //start over from top
         xApple = getStartingPoint(); //get new starting point for fruit x-axis
+        let appleSound = new Audio("appleSound.mp3")
+        appleSound.play();
     } 
     
     else if (yApple + dyApple > canvas.height) {
@@ -131,6 +133,8 @@ function draw() {
         dyWaste += 0.1;
         yWaste = -30;
         xWaste = getStartingPoint();
+        let wasteSound = new Audio("wasteSound.mp3")
+        wasteSound.play();
     } 
     
     else if (yWaste + dyWaste > canvas.height) {
